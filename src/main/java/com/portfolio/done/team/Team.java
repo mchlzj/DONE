@@ -1,5 +1,6 @@
 package com.portfolio.done.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -10,8 +11,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 import com.portfolio.done.appuser.AppUser;
-import com.portfolio.done.appuser.AppUserRole;
+import com.portfolio.done.security.roles.AppUserRole;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity(name ="Team")
 public class Team {
 
@@ -42,6 +45,7 @@ public class Team {
 	public Team(String title, String description) {
 		this.title = title;
 		this.description = description;
+		this.teamUsers = new ArrayList<AppUser>();
 	}
 	
 }

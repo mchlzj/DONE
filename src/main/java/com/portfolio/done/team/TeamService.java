@@ -30,16 +30,30 @@ public class TeamService {
 //		Optional<AppUser> appUser = appUserDao.findById(id);
 //		team.getTeamUsers().add(appUser.get());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth.getCredentials());
-		System.out.println(auth.getName());
-		System.out.println(auth.getAuthorities());
-		System.out.println(auth.getPrincipal());
+//		System.out.println(auth.getCredentials());
+//		System.out.println(auth.getName());
+//		System.out.println(auth.getAuthorities());
+//		System.out.println(auth.getPrincipal());
+//		System.out.println(team.getTeamUsers());
+//		System.out.println(appUserDao.findByEmail(auth.getName()).get().getEmail());
 		
-		team.getTeamUsers().add(appUserDao.findByEmail(auth.getName()).get());
+		String email = auth.getName();
+		System.out.println(email);
+		
+		AppUser appUser = appUserDao.findByEmail(email).get();
+		System.out.println(appUser);
+		
+		team.getTeamUsers().add(appUser);
+//		team.getTeamUsers().add(appUserDao.findByEmail(auth.getName()).get());
 //		CredentialUtils.getUserId();
 		teamDao.save(team);
+		appUser.getTeams().add(team);
+		appUserDao.save(appUser);
 		
 		return "Team created!";
 	}
 	
+	public Team getTeamById(Long id) {
+		return teamDao.findById(id).get();
+	}
 }

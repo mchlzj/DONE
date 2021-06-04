@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.portfolio.done.security.roles.AppUserRole;
+
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -30,7 +32,7 @@ public class AppUserDaoTests {
 				"Mustermann",
 				"Mustermann@gmail.com",
 				"supersicher",
-				AppUserRole.USER
+				AppUserRole.STUDENT.getGrantedAuthorities()
 				);
 		appUser = Optional.of(appUserMustermann);
 	}

@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.portfolio.done.appuser.AppUser;
-import com.portfolio.done.appuser.AppUserRole;
 import com.portfolio.done.appuser.AppUserService;
+import com.portfolio.done.security.roles.AppUserRole;
 
 @SpringBootApplication
 public class DoneApplication {

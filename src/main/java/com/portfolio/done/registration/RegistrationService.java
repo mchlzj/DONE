@@ -7,11 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.portfolio.done.appuser.AppUser;
-import com.portfolio.done.appuser.AppUserRole;
 import com.portfolio.done.appuser.AppUserService;
 import com.portfolio.done.registration.email.EmailSender;
 import com.portfolio.done.registration.token.ConfirmationToken;
 import com.portfolio.done.registration.token.ConfirmationTokenService;
+import com.portfolio.done.security.roles.AppUserRole;
 
 import lombok.AllArgsConstructor;
 
@@ -36,7 +36,7 @@ public class RegistrationService {
 						request.getLastName(),
 						request.getEmail(),
 						request.getPassword(),
-						AppUserRole.USER						
+						AppUserRole.ADMIN.getGrantedAuthorities()						
 						)
 				);
 		String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
