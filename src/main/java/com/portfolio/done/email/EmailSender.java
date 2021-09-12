@@ -1,4 +1,4 @@
-package com.portfolio.done.registration.email;
+package com.portfolio.done.email;
 
 public interface EmailSender {
 

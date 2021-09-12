@@ -1,4 +1,4 @@
-package com.portfolio.done.registration.email;
+package com.portfolio.done.email;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

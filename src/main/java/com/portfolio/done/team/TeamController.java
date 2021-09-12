@@ -3,6 +3,7 @@ package com.portfolio.done.team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class TeamController {
 	public String get() {
 //		return teamService.create(request);
 		System.out.println("...na toll");
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 		return "Team works";
 	}
 	
@@ -48,7 +50,7 @@ public class TeamController {
 	
 	@GetMapping(path = "{id}")
 //	@PreAuthorize("hasAuthority('{id}:read')")
-	@PreAuthorize("hasAuthority('student:write')")
+	@PreAuthorize("hasAuthority('team1:read')")
 	public String getTeamDescription(@PathVariable("id") Long id) {
 		Team team = teamService.getTeamById(id);
 		System.out.println(team.getDescription());

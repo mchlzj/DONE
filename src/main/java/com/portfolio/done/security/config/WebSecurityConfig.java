@@ -1,8 +1,6 @@
 package com.portfolio.done.security.config;
 
 
-import java.util.concurrent.TimeUnit;
-
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +21,13 @@ import com.portfolio.done.security.jwt.JwtTokenVerifyFilter;
 import com.portfolio.done.security.jwt.JwtUsernameAndPasswordAuthentivationFilter;
 import com.portfolio.done.security.roles.AppUserRole;
 
-import lombok.AllArgsConstructor;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableWebSecurity
+@EnableSwagger2
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -59,36 +60,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.addFilter(new JwtUsernameAndPasswordAuthentivationFilter(authenticationManager(), jwtConfig, secretKey))
 			.addFilterAfter(new JwtTokenVerifyFilter(secretKey, jwtConfig), JwtUsernameAndPasswordAuthentivationFilter.class)
 			.authorizeRequests()
-			.antMatchers("/")
+			.antMatchers("/**")
 				.permitAll()
 			.antMatchers("/api/**")
 			.hasRole(AppUserRole.ADMIN.name())
-//							.permitAll()
 			.anyRequest()
 			.authenticated();
-//			.and()
-//				.formLogin()
-//					.loginPage("/login")
-//					.permitAll()
-//					.defaultSuccessUrl("/courses",true)
-//					.passwordParameter("password")
-//					.usernameParameter("username")
-//			.and()
-//			.rememberMe()
-//				.tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-//				.key("somethingverysecured")
-//				//Bezieht sich auf das name attribute im Form. Muss übereinstimmen
-//				.rememberMeParameter("remember-me")
-//			.and()
-//			//sobald CSRF angeschaltet ist, muss ein POST beim Logout genutzt werden...
-//			//generell, bei allem was State ändert
-//			//Dokumentation zur Hilfe rufen. Die Methode kann über den Form Tag unter dem Attribute method="POST" geändert werden...
-//			.logout()
-//				.logoutUrl("/logout")
-//				.clearAuthentication(true)
-////				.invalidateHttpSession(true)
-////				.deleteCookies("JSESSIONID", "remember-me")
-//				.logoutSuccessUrl("/login");
+
 	}
 
 	@Override
@@ -103,4 +81,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		provider.setUserDetailsService(appUserService);
 		return provider;
 	}
+	
+    @Bean
+    public Docket api() { 
+        return new Docket(DocumentationType.SWAGGER_2)  
+          .select()                                  
+//          .apis(RequestHandlerSelectors.any())              
+//          .paths(PathSelectors.any())                          
+          .build();                                           
+    }
 }

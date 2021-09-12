@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping(path = "api/v1/registration")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class RegistrationController {
 	
 	@Autowired
@@ -22,7 +23,6 @@ public class RegistrationController {
 	
 	//TODO Cors Global einstellen
 	@PostMapping
-	@CrossOrigin(origins = "http://localhost:3000")
 	public String register(@RequestBody RegistrationRequest request) {
 		return registrationService.register(request);
 	}

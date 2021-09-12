@@ -1,5 +1,7 @@
 package com.portfolio.done.security.jwt;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.portfolio.done.appuser.AppUserService;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,7 @@ public class JwtUsernameAndPasswordAuthentivationFilter extends UsernamePassword
     private final AuthenticationManager authenticationManager;
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
+//    private final AppUserService appUserService;
 
     public JwtUsernameAndPasswordAuthentivationFilter(AuthenticationManager authenticationManager,
                                                       JwtConfig jwtConfig,
@@ -44,6 +47,7 @@ public class JwtUsernameAndPasswordAuthentivationFilter extends UsernamePassword
                     authenticationRequest.getPassword()
             );
 
+            
             Authentication authenticate = authenticationManager.authenticate(authentication);
             return authenticate;
 

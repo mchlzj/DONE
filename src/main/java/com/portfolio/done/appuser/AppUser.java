@@ -41,7 +41,6 @@ public class AppUser implements UserDetails {
 
 	// TODO Attribute überprüfen und ggf. überarbeiten
 	// TODO Was ist dieser SequenceGenerator?
-	
 	@SequenceGenerator(
 			name = "appuser_sequence",
 			sequenceName = "appuser_sequence",
@@ -59,22 +58,25 @@ public class AppUser implements UserDetails {
 //	private AppUserRole appUserRole;
 	//TODO Persist
 
-//	@ManyToMany()
-//	@JoinTable(
-//			  name = "appuser_grantedAuthority", 
-//			  joinColumns = @JoinColumn(name = "grantedAuthority_id"), 
-//			  inverseJoinColumns = @JoinColumn(name = "appuser_id"))
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_grantedAuthority", joinColumns = @JoinColumn(name = "appuser_id"))
 	private  Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<SimpleGrantedAuthority>();
 	private Boolean locked = false;
 	private Boolean enabled = false;
+	
 	@ManyToMany
 	@JoinTable(
 			  name = "appuser_team", 
 			  joinColumns = @JoinColumn(name = "team_id"), 
 			  inverseJoinColumns = @JoinColumn(name = "appuser_id"))
 	private List<Team> teams;
+	
+	@ManyToMany
+	@JoinTable(
+			  name = "appuser_list", 
+			  joinColumns = @JoinColumn(name = "list_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "appuser_id"))
+	private java.util.List<com.portfolio.done.workflows.List> lists;
 	
 	public AppUser(
 			String firstName, 
@@ -103,14 +105,6 @@ public class AppUser implements UserDetails {
 	public String getPassword() {
 		return password;
 	}
-	
-//	public String getFirstName() {
-//		return firstName;
-//	}
-//	
-//	public String getLastName() {
-//		return lastName;
-//	}
 
 	@Override
 	public String getUsername() {

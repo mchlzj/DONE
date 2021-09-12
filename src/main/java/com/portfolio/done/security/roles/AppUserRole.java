@@ -1,9 +1,5 @@
 package com.portfolio.done.security.roles;
 
-import static com.portfolio.done.security.roles.AppUserPermission.COURSE_READ;
-import static com.portfolio.done.security.roles.AppUserPermission.COURSE_WRITE;
-import static com.portfolio.done.security.roles.AppUserPermission.STUDENT_READ;
-import static com.portfolio.done.security.roles.AppUserPermission.STUDENT_WRITE;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,15 +9,23 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.google.common.collect.Sets;
 
 public enum AppUserRole {
-	STUDENT(Sets.newHashSet()),
-	ADMIN(Sets.newHashSet(
-			COURSE_READ, 
-			COURSE_WRITE, 
-			STUDENT_READ, 
-			STUDENT_WRITE)),
-	ADMINTRAINEE(Sets.newHashSet(
-			STUDENT_READ, 
-			COURSE_READ));
+	STUDENT(
+			Sets.newHashSet()
+			),
+	ADMIN(
+			Sets.newHashSet(
+			new AppUserPermission("course","read"),
+			new AppUserPermission("course","write"),
+			new AppUserPermission("student","read"),
+			new AppUserPermission("student","write")
+			)
+		),
+	ADMINTRAINEE(
+			Sets.newHashSet(
+			new AppUserPermission("student","read"),
+			new AppUserPermission("course","read")
+			)
+		);
 	
 	private final Set<AppUserPermission> permissions;
 	
@@ -31,6 +35,10 @@ public enum AppUserRole {
 	
 	public Set<AppUserPermission> getPermissions() {
 		return permissions;
+	}
+	
+	public void addPermissions(AppUserPermission appUserPermission) {
+		permissions.add(appUserPermission);
 	}
 	
 	public Set<SimpleGrantedAuthority> getGrantedAuthorities() {

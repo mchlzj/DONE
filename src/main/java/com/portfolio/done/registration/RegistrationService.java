@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.portfolio.done.appuser.AppUser;
 import com.portfolio.done.appuser.AppUserService;
-import com.portfolio.done.registration.email.EmailSender;
+import com.portfolio.done.email.EmailSender;
 import com.portfolio.done.registration.token.ConfirmationToken;
 import com.portfolio.done.registration.token.ConfirmationTokenService;
 import com.portfolio.done.security.roles.AppUserRole;

@@ -8,6 +8,8 @@ import com.portfolio.done.appuser.AppUser;
 import com.portfolio.done.appuser.AppUserService;
 import com.portfolio.done.security.roles.AppUserRole;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
 public class DoneApplication {
 	

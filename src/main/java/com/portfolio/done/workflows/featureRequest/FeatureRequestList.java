@@ -1,6 +1,5 @@
-package com.portfolio.done.team;
+package com.portfolio.done.workflows.featureRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,14 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import com.portfolio.done.appuser.AppUser;
-import com.portfolio.done.security.roles.AppUserRole;
-import com.portfolio.done.workflows.featureRequest.FeatureRequestList;
+import com.portfolio.done.team.Team;
 import com.portfolio.done.workflows.issue.IssueList;
 
 import lombok.AllArgsConstructor;
@@ -29,31 +25,23 @@ import lombok.Setter;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name ="Team")
-public class Team {
+@Entity(name ="Feature_Request")
+public class FeatureRequestList {
 
 	@SequenceGenerator(
-			name = "teamr_sequence",
-			sequenceName = "team_sequence",
+			name = "feature_sequence",
+			sequenceName = "feature_sequence",
 			allocationSize = 1)
 	@Id
 	@GeneratedValue(
 			strategy = GenerationType.SEQUENCE,
-			generator = "team_sequence")
+			generator = "feature_sequence")
 	private long id;
 	private String title;
 	private String description;
 	
-	@ManyToMany(mappedBy = "teams")
-	private List<AppUser> teamUsers;
-	
-	@OneToMany(mappedBy = "team")
-	private List<com.portfolio.done.workflows.List> lists;
-	
-	public Team(String title, String description) {
-		this.title = title;
-		this.description = description;
-		this.teamUsers = new ArrayList<AppUser>();
-	}
+	@ManyToOne
+    @JoinColumn(name="team_id", nullable=false)
+	private Team team;
 	
 }

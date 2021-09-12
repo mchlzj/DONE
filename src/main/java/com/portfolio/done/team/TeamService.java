@@ -1,22 +1,41 @@
 package com.portfolio.done.team;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.crypto.SecretKey;
+
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.portfolio.done.appuser.AppUser;
 import com.portfolio.done.appuser.AppUserDao;
+import com.portfolio.done.security.jwt.JwtConfig;
+import com.portfolio.done.security.roles.AppUserPermission;
 import com.portfolio.done.util.CredentialUtils;
+import java.time.LocalDate;
+import java.util.Date;
 
+import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
 public class TeamService {
 
+    private final JwtConfig jwtConfig;
+    private final SecretKey secretKey;
 	private final TeamDao teamDao;
 	private final AppUserDao appUserDao;
 	
@@ -25,17 +44,9 @@ public class TeamService {
 				request.getTitle(),
 				request.getDescription()
 				);
-//		team.getTeamUsers().add(appUser);
-//		long id = CredentialUtils.getUserId();
-//		Optional<AppUser> appUser = appUserDao.findById(id);
-//		team.getTeamUsers().add(appUser.get());
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//		System.out.println(auth.getCredentials());
-//		System.out.println(auth.getName());
-//		System.out.println(auth.getAuthorities());
-//		System.out.println(auth.getPrincipal());
-//		System.out.println(team.getTeamUsers());
-//		System.out.println(appUserDao.findByEmail(auth.getName()).get().getEmail());
+
 		
 		String email = auth.getName();
 		System.out.println(email);
@@ -44,11 +55,39 @@ public class TeamService {
 		System.out.println(appUser);
 		
 		team.getTeamUsers().add(appUser);
-//		team.getTeamUsers().add(appUserDao.findByEmail(auth.getName()).get());
-//		CredentialUtils.getUserId();
 		teamDao.save(team);
 		appUser.getTeams().add(team);
 		appUserDao.save(appUser);
+		System.out.println(auth.getAuthorities());
+		AppUserPermission appUserPermission = new AppUserPermission("team1","read");
+		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(appUserPermission.getPermission());
+		
+		Collection<SimpleGrantedAuthority> oldAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUserPermission.getPermission());
+		List<SimpleGrantedAuthority> updatedAuthorities = new ArrayList<SimpleGrantedAuthority>();
+		updatedAuthorities.add(authority);
+		updatedAuthorities.addAll(oldAuthorities);
+		
+		SecurityContextHolder.getContext().setAuthentication(
+		        new UsernamePasswordAuthenticationToken(
+		                SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
+		                SecurityContextHolder.getContext().getAuthentication().getCredentials(),
+		                updatedAuthorities)
+		);
+
+		appUserDao.save(appUser);
+        String token = Jwts.builder()
+                .setSubject(SecurityContextHolder.getContext().getAuthentication().getName())
+                .claim("authorities", SecurityContextHolder.getContext().getAuthentication().getAuthorities())
+                .setIssuedAt(new Date())
+                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
+                .signWith(secretKey)
+                .compact();
+
+        System.out.println(token);
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
+
 		
 		return "Team created!";
 	}
