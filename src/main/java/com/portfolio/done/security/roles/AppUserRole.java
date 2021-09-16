@@ -9,7 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.google.common.collect.Sets;
 
 public enum AppUserRole {
-	STUDENT(
+	USER(
 			Sets.newHashSet()
 			),
 	ADMIN(

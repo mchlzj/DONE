@@ -32,7 +32,7 @@ public class AppUserDaoTests {
 				"Mustermann",
 				"Mustermann@gmail.com",
 				"supersicher",
-				AppUserRole.STUDENT.getGrantedAuthorities()
+				AppUserRole.USER.getGrantedAuthorities()
 				);
 		appUser = Optional.of(appUserMustermann);
 	}

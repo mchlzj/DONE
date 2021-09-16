@@ -64,11 +64,11 @@ public class AppUser implements UserDetails {
 	private Boolean locked = false;
 	private Boolean enabled = false;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			  name = "appuser_team", 
-			  joinColumns = @JoinColumn(name = "team_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "appuser_id"))
+			  joinColumns = @JoinColumn(name = "appuser_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private List<Team> teams;
 	
 	@ManyToMany

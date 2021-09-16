@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -30,10 +32,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name ="Team")
-public class Team {
+public class Team implements Serializable{
 
 	@SequenceGenerator(
-			name = "teamr_sequence",
+			name = "team_sequence",
 			sequenceName = "team_sequence",
 			allocationSize = 1)
 	@Id
@@ -44,11 +46,11 @@ public class Team {
 	private String title;
 	private String description;
 	
-	@ManyToMany(mappedBy = "teams")
+	@ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY)
 	private List<AppUser> teamUsers;
 	
-	@OneToMany(mappedBy = "team")
-	private List<com.portfolio.done.workflows.List> lists;
+//	@OneToMany(mappedBy = "team")
+//	private List<com.portfolio.done.workflows.List> lists;
 	
 	public Team(String title, String description) {
 		this.title = title;

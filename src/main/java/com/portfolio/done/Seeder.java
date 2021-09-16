@@ -19,43 +19,43 @@ public class Seeder {
 		this.appUserService = appUserService;
 		
 		//Nutzer zum Testen erstellen und gleichzeitig registrieren und aktivieren
-		AppUser AdminAMeineOrgaA = new AppUser("AdminA", "MeineOrgaA", "AdminA@MeineOrgaA.de", "passwort", AppUserRole.ADMIN.getGrantedAuthorities());
+		AppUser AdminAMeineOrgaA = new AppUser("AdminA", "MeineOrgaA", "AdminA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(AdminAMeineOrgaA);
 		appUserService.enableAppUser(AdminAMeineOrgaA.getEmail());
 		
-		AppUser TesterAMeineOrgaA = new AppUser("TesterA", "MeineOrgaA", "TesterA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser TesterAMeineOrgaA = new AppUser("TesterA", "MeineOrgaA", "TesterA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(TesterAMeineOrgaA);
 		appUserService.enableAppUser(TesterAMeineOrgaA.getEmail());
 		
-		AppUser EntwicklerAMeineOrgaA = new AppUser("EntwicklerA", "MeineOrgaA", "EntwicklerA@MeineOrgaA.de", "passwort", AppUserRole.ADMINTRAINEE.getGrantedAuthorities());
+		AppUser EntwicklerAMeineOrgaA = new AppUser("EntwicklerA", "MeineOrgaA", "EntwicklerA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(EntwicklerAMeineOrgaA);
 		appUserService.enableAppUser(EntwicklerAMeineOrgaA.getEmail());
 		
-		AppUser SpezifiziererAMeineOrgaA = new AppUser("SpezifiziererA", "MeineOrgaA", "SpezifiziererA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser SpezifiziererAMeineOrgaA = new AppUser("SpezifiziererA", "MeineOrgaA", "SpezifiziererA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(SpezifiziererAMeineOrgaA);
 		appUserService.enableAppUser(SpezifiziererAMeineOrgaA.getEmail());
 		
-		AppUser AnforderungsmanagerAMeineOrgaA = new AppUser("AnforderungsmanagerA", "MeineOrgaA", "AnforderungsmanagerA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser AnforderungsmanagerAMeineOrgaA = new AppUser("AnforderungsmanagerA", "MeineOrgaA", "AnforderungsmanagerA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(AnforderungsmanagerAMeineOrgaA);
 		appUserService.enableAppUser(AnforderungsmanagerAMeineOrgaA.getEmail());
 		
-		AppUser UserAMeineOrgaA = new AppUser("UserA", "MeineOrgaA", "UserA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser UserAMeineOrgaA = new AppUser("UserA", "MeineOrgaA", "UserA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(UserAMeineOrgaA);
 		appUserService.enableAppUser(UserAMeineOrgaA.getEmail());
 		
-		AppUser HelpdeskAMeineOrgaA = new AppUser("HelpdeskA", "MeineOrgaA", "HelpdeskA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser HelpdeskAMeineOrgaA = new AppUser("HelpdeskA", "MeineOrgaA", "HelpdeskA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(HelpdeskAMeineOrgaA);
 		appUserService.enableAppUser(HelpdeskAMeineOrgaA.getEmail());
 		
-		AppUser SecondlevelAAMeineOrgaA = new AppUser("SecondlevelA", "MeineOrgaA", "SecondlevelA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser SecondlevelAAMeineOrgaA = new AppUser("SecondlevelA", "MeineOrgaA", "SecondlevelA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(SecondlevelAAMeineOrgaA);
 		appUserService.enableAppUser(SecondlevelAAMeineOrgaA.getEmail());
 		
-		AppUser KeinZugriffAMeineOrgaA = new AppUser("KeinZugriffA", "MeineOrgaA", "KeinZugriffA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser KeinZugriffAMeineOrgaA = new AppUser("KeinZugriffA", "MeineOrgaA", "KeinZugriffA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(KeinZugriffAMeineOrgaA);
 		appUserService.enableAppUser(KeinZugriffAMeineOrgaA.getEmail());
 		
-		AppUser DisabledAMeineOrgaA = new AppUser("DisabledA", "MeineOrgaA", "DisabledA@MeineOrgaA.de", "passwort", AppUserRole.STUDENT.getGrantedAuthorities());
+		AppUser DisabledAMeineOrgaA = new AppUser("DisabledA", "MeineOrgaA", "DisabledA@MeineOrgaA.de", "passwort", AppUserRole.USER.getGrantedAuthorities());
 		appUserService.signUpUser(DisabledAMeineOrgaA);
 		
 		System.out.println("ACHTUNG-------------------------------------ACHTUNG");

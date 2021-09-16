@@ -58,8 +58,9 @@ public class TeamService {
 		teamDao.save(team);
 		appUser.getTeams().add(team);
 		appUserDao.save(appUser);
+		//
 		System.out.println(auth.getAuthorities());
-		AppUserPermission appUserPermission = new AppUserPermission("team1","read");
+		AppUserPermission appUserPermission = new AppUserPermission(request.getTitle(),"admin");
 		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(appUserPermission.getPermission());
 		
 		Collection<SimpleGrantedAuthority> oldAuthorities = (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext().getAuthentication().getAuthorities();
@@ -87,12 +88,22 @@ public class TeamService {
         System.out.println(token);
 		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
+		//TODO Saving Token to User!
 
 		
 		return "Team created!";
 	}
 	
-	public Team getTeamById(Long id) {
+	public Team findById(Long id) {
 		return teamDao.findById(id).get();
+	}
+	public Team findByTitle(String title) {
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		return teamDao.findByTitle(title).get();
+	}
+	
+	public List<AppUser> getAllTeamUsers(Long id) {
+		return teamDao.getAllTeamUsers(id);
 	}
 }
